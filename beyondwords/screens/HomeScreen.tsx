@@ -1,21 +1,24 @@
 import React, { useState, useRef } from 'react';
-import { Button, Image, View, Text, StyleSheet, ScrollView } from 'react-native';
+import { Button, Image, View, Text, StyleSheet, ScrollView, Dimensions } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import TextRecognition from '@react-native-ml-kit/text-recognition';
 import Tts from 'react-native-tts';
+import Lottie from 'lottie-react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
+const {width, height} = Dimensions.get('window');
 
 export default function HomeScreen() {
     const cameraRef = useRef<RNCamera | null>(null);
     const [picture, setPicture] = useState<string | null>(null);
     const [text, setText] = useState<string | null>(null);
     const [fontSize, setFontSize] = useState<number>(20);
-    const [showHome, setShowHome] = useState<boolean>(false);
+    const [showHome, setShowHome] = useState<boolean>(true);
     
     const handleRetakeButtonPress = () => {
         setPicture(null);
         setText(null);
-        setShowHome(false);
+        setShowHome(true);
     };
 
     const handleTakePictureButtonPress = async () => {
@@ -58,8 +61,11 @@ export default function HomeScreen() {
         <>
             {showHome ? (
                 <View style={[styles.homeContainer]}>
-                    <Text style={styles.homeTitle}>Home</Text>
+                    <LinearGradient colors={['#F5DEB3', '#D2B48C', '#BC8F8F']} style={styles.linearGradient}>
+                    <Lottie style={styles.lottie} source={require('../assets/animations/animation_lnqnjar2.json')} autoPlay loop />
+                    <Text style={styles.homeTitle}>Start Reading!</Text>
                     <Button title="Scan Text" onPress={handleScanTextButtonPress} />
+                    </LinearGradient>
                 </View>
             ) : picture ? (
                 <View style={{ flex: 1 }}>
@@ -108,5 +114,15 @@ const styles = StyleSheet.create({
         fontFamily: 'OpenDyslexic-Bold',
         margin: 10,
     },
+    lottie:{
+        width: width*0.9,
+        height: width
+    },
+    linearGradient: {
+        flex: 1,
+        paddingLeft: 25,
+        paddingRight: 25,
+        borderRadius: 5
+      },
 });
 

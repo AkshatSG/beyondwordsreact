@@ -39,7 +39,6 @@ export default function AppNavigation() {
           <Stack.Screen name="Onboarding" options={{headerShown: false}} component={OnboardingScreen} />
           <Stack.Screen name="Home" options={{headerShown: false}} component={HomeScreen} />
           <Stack.Screen name="Reader" options={{headerShown: false}} component={ReaderScreen} />
-          {/* <Stack.Screen name="Scanner" options={{headerShown: false}} component={ScannerScreen} /> */}
         </Stack.Navigator>
       </NavigationContainer>
     )
@@ -50,7 +49,6 @@ export default function AppNavigation() {
           <Stack.Screen name="Onboarding" options={{headerShown: false}} component={OnboardingScreen} />
           <Stack.Screen name="Home" options={{headerShown: false}} component={HomeScreen} />
           <Stack.Screen name="Reader" options={{headerShown: false}} component={ReaderScreen} />
-          {/* <Stack.Screen name="Scanner" options={{headerShown: false}} component={ScannerScreen} /> */}
         </Stack.Navigator>
       </NavigationContainer>
     )

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import Onboarding from 'react-native-onboarding-swiper';
 import Lottie from 'lottie-react-native';
@@ -10,7 +10,7 @@ const {width, height} = Dimensions.get('window');
 export default function OnboardingScreen() {
     const navigation = useNavigation();
 
-    const handleDone = ()=>{
+    const handleDone = ()=>{        
         navigation.navigate('Home');
         setItem('onboarded', '1');
     }
@@ -31,6 +31,16 @@ export default function OnboardingScreen() {
             DoneButtonComponent={doneButton}
             containerStyles={{paddingHorizontal: 15}}
             pages={[
+                {
+                    backgroundColor: '#ffffff',
+                    image: (
+                        <View style={styles.lottie}>
+                            <Image style={styles.image} source={require('../assets/images/beyondwords.png')} />
+                        </View>
+                    ),
+                    title: 'Welcome to BeyondWords',
+                    subtitle: 'Your AI powered reading guide',
+                },
                 {
                     backgroundColor: '#a7f3d0',
                     image: (
@@ -81,5 +91,9 @@ const styles = StyleSheet.create({
         // backgroundColor: 'white',
         // borderTopLeftRadius: '100%',
         // borderBottomLeftRadius: '100%'
+    },
+    image:{
+        width: width*0.9,
+        height: width*0.9
     }
 })

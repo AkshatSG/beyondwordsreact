@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../screens/HomeScreen';
 import OnboardingScreen from '../screens/OnboardingScreen';
 import { getItem } from '../utils/asyncStorage';
-
+import ReaderScreen from '../screens/ReaderScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -38,6 +38,8 @@ export default function AppNavigation() {
         <Stack.Navigator initialRouteName='Onboarding'>
           <Stack.Screen name="Onboarding" options={{headerShown: false}} component={OnboardingScreen} />
           <Stack.Screen name="Home" options={{headerShown: false}} component={HomeScreen} />
+          <Stack.Screen name="Reader" options={{headerShown: false}} component={ReaderScreen} />
+          {/* <Stack.Screen name="Scanner" options={{headerShown: false}} component={ScannerScreen} /> */}
         </Stack.Navigator>
       </NavigationContainer>
     )
@@ -47,6 +49,8 @@ export default function AppNavigation() {
         <Stack.Navigator initialRouteName='Home'>
           <Stack.Screen name="Onboarding" options={{headerShown: false}} component={OnboardingScreen} />
           <Stack.Screen name="Home" options={{headerShown: false}} component={HomeScreen} />
+          <Stack.Screen name="Reader" options={{headerShown: false}} component={ReaderScreen} />
+          {/* <Stack.Screen name="Scanner" options={{headerShown: false}} component={ScannerScreen} /> */}
         </Stack.Navigator>
       </NavigationContainer>
     )

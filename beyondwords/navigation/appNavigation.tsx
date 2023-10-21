@@ -5,6 +5,8 @@ import HomeScreen from '../screens/HomeScreen';
 import OnboardingScreen from '../screens/OnboardingScreen';
 import { getItem } from '../utils/asyncStorage';
 import ReaderScreen from '../screens/ReaderScreen';
+import EvaluationScreen from '../screens/EvaluationScreen';
+import { ImageBackground } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 
@@ -39,6 +41,7 @@ export default function AppNavigation() {
           <Stack.Screen name="Onboarding" options={{headerShown: false}} component={OnboardingScreen} />
           <Stack.Screen name="Home" options={{headerShown: false}} component={HomeScreen} />
           <Stack.Screen name="Reader" options={{headerShown: false}} component={ReaderScreen} />
+          <Stack.Screen name="Evaluation" options={{headerShown: false}} component={EvaluationScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     )
@@ -49,6 +52,7 @@ export default function AppNavigation() {
           <Stack.Screen name="Onboarding" options={{headerShown: false}} component={OnboardingScreen} />
           <Stack.Screen name="Home" options={{headerShown: false}} component={HomeScreen} />
           <Stack.Screen name="Reader" options={{headerShown: false}} component={ReaderScreen} />
+          <Stack.Screen name="Evaluation" options={{headerShown: false}} component={EvaluationScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     )

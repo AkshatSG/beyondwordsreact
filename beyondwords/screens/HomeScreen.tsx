@@ -6,9 +6,9 @@ import Tts from 'react-native-tts';
 import LinearGradient from 'react-native-linear-gradient';
 import Lottie from 'lottie-react-native';
 import { useNavigation } from '@react-navigation/native';
-import Scanner from "react-native-rectangle-scanner"
-
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
+const buttonSize = 30;
+const buttonMargin = 20;
 
 export default function HomeScreen() {
     const [picture, setPicture] = useState<string | null>(null);
@@ -67,12 +67,6 @@ export default function HomeScreen() {
         setFontSize((prevFontSize) => prevFontSize - 2);
     };
 
-    // const handleReadOut = () => {
-    //     if (text) {
-    //         Tts.speak(text.replace(/\n/, ""));
-    //     }
-    // };
-
     const handleScanTextButtonPress = () => {
         setShowHome(false);
         // navigation.navigate('Scanner');
@@ -103,49 +97,6 @@ export default function HomeScreen() {
             Tts.stop();
         }
     }
-
-    // const HomeScreen = () => {
-    //     const [picture, setPicture] = useState(null);
-    //     const [text, setText] = useState(null);
-    //     const [showHome, setShowHome] = useState(true);
-    //     const [showImage, setShowImage] = useState(false);
-    //     const [tickClicked, setTickClicked] = useState(false);
-    //     const [fontSize, setFontSize] = useState(20);
-    //     const [isReading, setIsReading] = useState(false); // Add state variable for read out button
-
-    //     const handleCancelButtonPress = () => {
-    //         setPicture(null);
-    //         setText(null);
-    //         setShowHome(true);
-    //         setShowImage(false);
-    //         setTickClicked(false);
-    //     };
-
-    //     const handleRetakeImage = () => {
-    //         setPicture(null);
-    //         setText(null);
-    //         setShowHome(true);
-    //         setShowImage(false);
-    //         setTickClicked(false);
-    //     }
-
-    //     const handleOCR = async () => {
-    //         const recognizedText = await TextRecognition.recognize(picture);
-    //         setText(recognizedText.text); // Update the setText function to accept a string
-    //         console.log(recognizedText.text)
-    //         setShowImage(false);
-    //         setTickClicked(false);
-    //     }
-
-    //     const handleReadOut = () => {
-    //         if (!isReading && text) {
-    //             setIsReading(true);
-    //             Tts.speak(text);
-    //         } else {
-    //             setIsReading(false);
-    //             Tts.stop();
-    //         }
-    //     }
 
         return (
             <>
@@ -209,11 +160,14 @@ export default function HomeScreen() {
                     </View>
                 ) : (
                     <>
-                        <RNCamera ref={cameraRef} style={{ flex: 1 }} />
-                        <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 10 }}>
-                            <Button title="Take Picture" onPress={handleTakePictureButtonPress} />
-                            <Button title="Cancel" onPress={handleCancelButtonPress} />
-                        </View>
+                        <RNCamera ref={cameraRef} style={{ flex: 1 }}>
+                            <TouchableOpacity onPress={handleTakePictureButtonPress} style={styles.cameraButton}>
+                                <View style={styles.cameraButtonInner} />
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={handleCancelButtonPress} style={styles.cancelButton}>
+                                <View style={styles.cancelButtonText}><Text>X</Text></View>
+                            </TouchableOpacity>
+                        </RNCamera>
                     </>
                 )}
             </>
@@ -258,5 +212,38 @@ export default function HomeScreen() {
         circleText: {
             fontSize: 30,
             fontWeight: 'bold',
+        },
+        cameraButton: {
+            position: 'absolute',
+            bottom: 20,
+            alignSelf: 'center',
+            width: 70,
+            height: 70,
+            borderRadius: 35,
+            backgroundColor: 'white',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        cameraButtonInner: {
+            width: 60,
+            height: 60,
+            borderRadius: 30,
+            backgroundColor: '#646262',
+        },
+        cancelButton: {
+            position: 'absolute',
+            top: buttonMargin,
+            right: buttonMargin,
+            width: buttonSize,
+            height: buttonSize,
+            borderRadius: buttonSize / 2,
+            backgroundColor: '#ccc',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        cancelButtonText: {
+            fontSize: 20,
+            fontWeight: 'bold',
+            color: '#fff',
         },
     });

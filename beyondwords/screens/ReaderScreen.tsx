@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import Tts from 'react-native-tts';
 import { RouteProp } from '@react-navigation/native';
+import Voice from '@react-native-voice/voice';
+import { useNavigation } from '@react-navigation/native';
 
 export default function ReaderScreen({route}) {
     const { text } = route.params;
@@ -9,6 +11,10 @@ export default function ReaderScreen({route}) {
     const [isReading, setIsReading] = useState(false);
     const [isReadingComplete, setIsReadingComplete] = useState(false);
     const [readingSpeed, setReadingSpeed] = useState<number>(0.5);
+    const [isRecording, setIsRecording] = useState(false);
+    const [capturedText, setCapturedText] = useState('');
+    const [rawText, setRawText] = useState(text);
+    const navigation = useNavigation();
 
     useEffect(() => {
         Tts.setDefaultRate(readingSpeed);
@@ -49,6 +55,45 @@ export default function ReaderScreen({route}) {
         setReadingSpeed((prevSpeed) => prevSpeed - 0.5);
     }
 
+    const handleVoiceRecognition = async () => {
+        if (!isRecording) {
+            setIsRecording(true);
+            try {
+                await Voice.start('en-US');
+            } catch (e) {
+                console.error(e);
+            }
+        } else {
+            setIsRecording(false);
+            try {
+                await Voice.stop();
+            } catch (e) {
+                console.error(e);
+            }
+        }
+    }
+
+    const handleVoiceRecognitionResult = (e: any) => {        
+        setCapturedText(e.value[0]);
+        setIsRecording(false);
+        Voice.destroy().then(Voice.removeAllListeners);
+        console.log('CAPUCINO WHAHAHAHA');
+        navigation.navigate('Evaluation', { capturedText: capturedText });
+    }
+
+    useEffect(() => {
+        Voice.onSpeechResults = handleVoiceRecognitionResult;
+        return () => {
+            Voice.destroy().then(Voice.removeAllListeners);
+        };
+    }, []);
+
+    useEffect(() => {
+        if (!isRecording && capturedText) {
+            console.log(capturedText);
+        }
+    }, [isRecording]);
+
     return (
         <View style={{ flex: 1 }}>
             <ScrollView style={{ flex: 1 }}>
@@ -80,6 +125,11 @@ export default function ReaderScreen({route}) {
                 <TouchableOpacity onPress={handleIncreaseSpeed}>
                     <View style={styles.circle}>
                         <Text style={styles.circleText}>+</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={handleVoiceRecognition}>
+                    <View style={[styles.circle, { backgroundColor: isRecording ? '#8BD4BD' : '#90AAE7' }]}>
+                        <Text style={styles.circleText}>{isRecording ? '🎤' : '🎤'}</Text>
                     </View>
                 </TouchableOpacity>
             </View>

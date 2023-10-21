@@ -42,11 +42,11 @@ export default function ReaderScreen({route}) {
     }
 
     const handleIncreaseSpeed = () => {
-        setReadingSpeed((prevSpeed) => prevSpeed + 0.1);
+        setReadingSpeed((prevSpeed) => prevSpeed + 0.5);
     }
 
     const handleDecreaseSpeed = () => {
-        setReadingSpeed((prevSpeed) => prevSpeed - 0.1);
+        setReadingSpeed((prevSpeed) => prevSpeed - 0.5);
     }
 
     return (

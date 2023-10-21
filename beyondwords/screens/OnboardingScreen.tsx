@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Image } from 'react-native'
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Image, ImageBackground } from 'react-native'
 import React from 'react'
 import Onboarding from 'react-native-onboarding-swiper';
 import Lottie from 'lottie-react-native';
@@ -39,7 +39,7 @@ export default function OnboardingScreen() {
                         </View>
                     ),
                     title: 'Welcome to BeyondWords',
-                    subtitle: 'Your AI powered reading guide',
+                    subtitle: 'Your AI powered reading guide',                    
                 },
                 {
                     backgroundColor: '#a7f3d0',
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     },
     lottie:{
         width: width*0.9,
-        height: width
+        height: width        
     },
     doneButton: {
         padding: 20,

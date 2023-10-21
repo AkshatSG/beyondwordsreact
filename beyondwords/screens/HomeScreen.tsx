@@ -33,7 +33,8 @@ export default function HomeScreen() {
     const handleTickMark = async () => {
             const options = { quality: 0.5, base64: true };
             const recognizedText = await TextRecognition.recognize(picture);
-            navigation.navigate('Reader', { text: recognizedText.text });
+            const cleanText = recognizedText.text.replace(/[\n\r]+/g, ' ');
+            navigation.navigate('Reader', { text: cleanText });
             // setText(recognizedText.text); // Update the setText function to accept a string
             // console.log(recognizedText.text)
             // setShowHome(false);

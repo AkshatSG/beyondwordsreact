@@ -25,6 +25,7 @@
     "react-native-async-storage": "^0.0.1",
     "react-native-camera": "^4.2.1",
     "react-native-document-scanner-plugin": "^0.9.1",
+    "react-native-dotenv": "^3.4.9",
     "react-native-fontawesome": "^7.0.0",
     "react-native-linear-gradient": "^2.8.3",
     "react-native-onboarding-swiper": "^1.2.0",

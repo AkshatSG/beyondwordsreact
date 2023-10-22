@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image, ActivityIndicator, Alert } from 'react-native';
 import Tts from 'react-native-tts';
 import Voice from '@react-native-voice/voice';
 import { useNavigation } from '@react-navigation/native';
+import { TextSummarization } from '../utils/bert';
 
 export default function ReaderScreen({ route }) {
   const { text } = route.params;
@@ -14,6 +15,9 @@ export default function ReaderScreen({ route }) {
   const [capturedText, setCapturedText] = useState('');
   const [rawText, setRawText] = useState(text);
   const [voiceRecognitionActive, setVoiceRecognitionActive] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [summaryText, setSummaryText] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -45,31 +49,16 @@ export default function ReaderScreen({ route }) {
   }
 
   const handleIncreaseSpeed = () => {
-    setReadingSpeed((prevSpeed) => prevSpeed + 0.5);
+    const newSpeed = readingSpeed + 2;
+    setReadingSpeed(newSpeed);
+    Tts.setDefaultRate(newSpeed);
   }
 
   const handleDecreaseSpeed = () => {
-    setReadingSpeed((prevSpeed) => prevSpeed - 0.5);
+    const newSpeed = readingSpeed - 2;
+    setReadingSpeed(newSpeed);
+    Tts.setDefaultRate(newSpeed);
   }
-
-  const splitIntoWords = (text: string) => {
-    return text
-      .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '')
-      .toLowerCase() // Convert to lowercase for case-insensitive comparison
-      .split(' ')
-      .filter((word) => word !== ''); // Filter out empty strings
-  };
-  
-  const findMissingWords = (string1: string, string2: string) => {
-    const words1 = splitIntoWords(string1);
-    const words2 = splitIntoWords(string2);
-  
-    const missingWords = words1.filter((word) => !words2.includes(word));
-  
-    return missingWords;
-  };
-
-
 
   const handleVoiceRecognition = () => {
     if (!voiceRecognitionActive) {
@@ -85,32 +74,36 @@ export default function ReaderScreen({ route }) {
     }
   }
 
-  const handleVoiceRecognitionResult = (e: any) => {
-    const captured = e.value[0];
-    setCapturedText(captured);
-    Tts.speak("Good job! However, you may have missed the following words.");
-    findMissingWords(rawText, captured).forEach((word) => {
-        Tts.speak(word);
-        });
+  const handleSummarizeText = async () => {
+    setIsLoading(true);
+    const summary = await TextSummarization(rawText);
+    setIsLoading(false);
+    if (summary === "ERROR") {
+      Alert.alert(
+        "Error",
+        "An error occurred while summarizing the text. Please try again in a few minutes.",
+        [
+          {
+            text: "OK",
+            onPress: () => console.log("OK Pressed"),
+            style: "cancel"
+          }
+        ]
+      );
+    } else {
+      setSummaryText(summary);
+      navigation.navigate('AISummary', { text: summary });
+    }
   }
 
-  useEffect(() => {
-    Voice.onSpeechResults = handleVoiceRecognitionResult;
-    return () => {
-      Voice.destroy().then(Voice.removeAllListeners);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!isRecording && capturedText) {
-      console.log(capturedText);
-      // Navigate to the Evaluation screen
-      navigation.navigate('Evaluation', { rawText: rawText, capturedText: capturedText });
-    }
-  }, [isRecording, capturedText, rawText, navigation]);
+  // Rest of the code remains the same
 
   return (
     <View style={{ flex: 1 }}>
+      <View style={styles.header}>
+        <Image source={require('../assets/images/beyondwords.png')} style={styles.logo} />
+        <Text style={styles.headerText}>Read Easy: Your Digital Portal</Text>
+      </View>
       <ScrollView style={{ flex: 1 }}>
         <Text style={[styles.text, { fontSize: fontSize }]}>{text}</Text>
       </ScrollView>
@@ -145,6 +138,15 @@ export default function ReaderScreen({ route }) {
             <Text style={styles.circleText}>{isRecording ? '🎤' : '🎤'}</Text>
           </View>
         </TouchableOpacity>
+        <TouchableOpacity onPress={handleSummarizeText}>
+          <View style={styles.circle}>
+            {isLoading ? (
+              <ActivityIndicator size="small" color="#fff" />
+            ) : (
+              <Text style={styles.circleText}>📝</Text>
+            )}
+          </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -154,6 +156,11 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: 'OpenDyslexic-Bold',
     margin: 10,
+  },
+  headerText: {
+    fontFamily: 'OpenDyslexic-Bold',
+    margin: 10,
+    fontSize: 17,
   },
   circle: {
     width: 40,
@@ -177,4 +184,34 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: '#000',
   },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+
+  openButton: {
+    backgroundColor: "#F194FF",
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  header: {
+    backgroundColor: '#ADD8E6',
+    height: 60,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    paddingLeft: 5,
+  },
+  logo: {
+      width: 60,
+      height: 60,
+  },  
 });

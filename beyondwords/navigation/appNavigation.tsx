@@ -7,6 +7,8 @@ import { getItem } from '../utils/asyncStorage';
 import ReaderScreen from '../screens/ReaderScreen';
 import EvaluationScreen from '../screens/EvaluationScreen';
 import AISummaryScreen from '../screens/AISummaryScreen';
+import ImageCropScreen from '../screens/ImageCropScreen';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -40,6 +42,7 @@ export default function AppNavigation() {
         <Stack.Navigator initialRouteName='Onboarding'>
           <Stack.Screen name="Onboarding" options={{headerShown: false}} component={OnboardingScreen} />
           <Stack.Screen name="Home" options={{headerShown: false}} component={HomeScreen} />
+          <Stack.Screen name="ImageCrop" options={{headerShown: false}} component={ImageCropScreen} />
           <Stack.Screen name="Reader" options={{headerShown: false}} component={ReaderScreen} />
           <Stack.Screen name="Evaluation" options={{headerShown: false}} component={EvaluationScreen} />
           <Stack.Screen name="AISummary" options={{headerShown: false}} component={AISummaryScreen} />
@@ -52,6 +55,7 @@ export default function AppNavigation() {
         <Stack.Navigator initialRouteName='Home'>
           <Stack.Screen name="Onboarding" options={{headerShown: false}} component={OnboardingScreen} />
           <Stack.Screen name="Home" options={{headerShown: false}} component={HomeScreen} />
+          <Stack.Screen name="ImageCrop" options={{headerShown: false}} component={ImageCropScreen} />
           <Stack.Screen name="Reader" options={{headerShown: false}} component={ReaderScreen} />
           <Stack.Screen name="Evaluation" options={{headerShown: false}} component={EvaluationScreen} />
           <Stack.Screen name="AISummary" options={{headerShown: false}} component={AISummaryScreen} />

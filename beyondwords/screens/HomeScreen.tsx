@@ -1,16 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ImageBackground } from 'react-native';
-import { RNCamera } from 'react-native-camera';
-import TextRecognition from '@react-native-ml-kit/text-recognition';
-import Tts from 'react-native-tts';
-import LinearGradient from 'react-native-linear-gradient';
-import Lottie from 'lottie-react-native';
 import { useNavigation } from '@react-navigation/native';
-import ImagePicker from 'react-native-image-crop-picker';
 
 const { width, height } = Dimensions.get('window');
-const buttonSize = 30;
-const buttonMargin = 20;
+const buttonSize = width * 0.4;
 
 export default function HomeScreen() {
 
@@ -20,13 +13,13 @@ export default function HomeScreen() {
         navigation.navigate('ImageCrop');
     }
 
+    const circleButtonStyle = [styles.circleButton, {width: buttonSize, height: buttonSize}];
+
     return (
         <ImageBackground source={require('../assets/images/appbackground.jpeg')} style={styles.backgroundImage}>
             <View style={[styles.homeContainer]}>
-                {/* <Lottie style={styles.lottie} source={require('../assets/animations/animation_lnqnjar2.json')} autoPlay loop /> */}
-                {/* <Text style={styles.homeTitle}>Start Reading!</Text> */}
-                <TouchableOpacity style={styles.circleButton} onPress={handleScanTextButtonPress}>
-                    <Text style={styles.plusSign}>+</Text>
+                <TouchableOpacity style={circleButtonStyle} onPress={handleScanTextButtonPress}>
+                    <Text style={styles.newText}>+</Text>
                 </TouchableOpacity>
             </View>
         </ImageBackground>
@@ -48,21 +41,30 @@ const styles = StyleSheet.create({
         fontFamily: 'OpenDyslexic-Bold',
         margin: 10,
     },
-    lottie:{
-        width: width*0.9,
-        height: width
-    },
     circleButton: {
-        width: 150,
-        height: 150,
         borderRadius: 100,
-        backgroundColor: '#fff',
+        backgroundColor: '#0072C6',
         justifyContent: 'center',
         alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
     },
-    plusSign: {
-        fontSize: 100,
+    newText: {
+        fontFamily: 'OpenDyslexic-Bold',
         fontWeight: 'bold',
+        textShadowColor: 'rgba(0, 0, 0, 0.75)',
+        textShadowOffset: {width: -1, height: 1},
+        textShadowRadius: 10,
+        textAlign: 'center',
+        lineHeight: buttonSize,
+        color: 'lightgray',
+        fontSize: buttonSize * 0.8,
     },
     backgroundImage: {
         flex: 1,

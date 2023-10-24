@@ -15,7 +15,6 @@ const buttonMargin = 20;
 export default function ImageCropScreen() {
     const [picture, setPicture] = useState<string | null>(null);
     const [text, setText] = useState<string | null>(null);
-    const [showHome, setShowHome] = useState<boolean>(true);
     const [showImage, setShowImage] = useState<boolean>(false);
     const [fontSize, setFontSize] = useState<number>(20);
     const [tickClicked, setTickClicked] = useState<boolean>(false);
@@ -45,20 +44,15 @@ export default function ImageCropScreen() {
     const handleRetakeButtonPress = () => {
         setPicture(null);
         setText(null);
-        setShowHome(false);
         setShowImage(false);
         setTickClicked(false);
     };
 
     const handleTickMark = async () => {
-            const options = { quality: 0.5, base64: true };
-            const recognizedText = await TextRecognition.recognize(picture);
-            const cleanText = recognizedText.text.replace(/[\n\r]+/g, ' ');
-            navigation.navigate('Reader', { text: cleanText });
-            // setText(recognizedText.text); // Update the setText function to accept a string
-            // console.log(recognizedText.text)
-            // setShowHome(false);
-            // setTickClicked(true);
+        const options = { quality: 0.5, base64: true };
+        const recognizedText = await TextRecognition.recognize(picture);
+        const cleanText = recognizedText.text.replace(/[\n\r]+/g, ' ');
+        navigation.navigate('Reader', { text: cleanText });
     };
 
     const handleTakePictureButtonPress = async () => {
@@ -67,7 +61,6 @@ export default function ImageCropScreen() {
             const data = await cameraRef.current.takePictureAsync(options);
             console.log(data.uri);
             setPicture(data.uri);
-            setShowHome(false);
             setShowImage(true);
         }
     };
@@ -79,7 +72,6 @@ export default function ImageCropScreen() {
     const handleXMark = () => {
         setPicture(null);
         setText(null);
-        setShowHome(false);
         setShowImage(false);
         setTickClicked(false);
     };
@@ -88,23 +80,17 @@ export default function ImageCropScreen() {
         setFontSize((prevFontSize) => prevFontSize - 2);
     };
 
-    const handleScanTextButtonPress = () => {
-        setShowHome(false);
-        // navigation.navigate('Scanner');
-    }
-
     const handleCancelButtonPress = () => {
         setPicture(null);
         setText(null);
-        setShowHome(true);
         setShowImage(false);
         setTickClicked(false);
+        navigation.goBack();
     };
 
     const handleRetakeImage = () => {
         setPicture(null);
         setText(null);
-        setShowHome(true);
         setShowImage(false);
         setTickClicked(false);
     }

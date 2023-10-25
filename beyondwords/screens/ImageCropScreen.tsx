@@ -27,11 +27,16 @@ export default function ImageCropScreen() {
         try {
           const image = await ImagePicker.openCropper({
             path: picture,
-            width: 400, // Width of the corrected image
-            height: 400, // Height of the corrected image
+            width: width * 0.5, // Width of the corrected image
+            height: height * 0.5, // Height of the corrected image
             cropping: true,
+            hideBottomControls: true,
+            cropperToolbarTitle: 'Crop Image',
+            cropperToolbarColor: '#90AAE7',
+            cropperStatusBarColor: '#90AAE7',
             cropperCircleOverlay: false,
-            freeStyleCropEnabled: true
+            freeStyleCropEnabled: true,
+            enableRotationGesture: true,            
           }).then(image => {
             setPicture(image.path);
           });

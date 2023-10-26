@@ -27,8 +27,8 @@ export default function ImageCropScreen() {
         try {
           const image = await ImagePicker.openCropper({
             path: picture,
-            width: width * 0.5, // Width of the corrected image
-            height: height * 0.5, // Height of the corrected image
+            width: 1000, // Width of the corrected image
+            height: 800, // Height of the corrected image
             cropping: true,
             hideBottomControls: true,
             cropperToolbarTitle: 'Crop Image',
@@ -37,6 +37,8 @@ export default function ImageCropScreen() {
             cropperCircleOverlay: false,
             freeStyleCropEnabled: true,
             enableRotationGesture: true,            
+            compressImageMaxHeight: 1000,
+            compressImageMaxWidth: 1500,
           }).then(image => {
             setPicture(image.path);
           });

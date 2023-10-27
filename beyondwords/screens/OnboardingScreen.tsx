@@ -4,6 +4,7 @@ import Onboarding from 'react-native-onboarding-swiper';
 import Lottie from 'lottie-react-native';
 import { useNavigation } from '@react-navigation/native';
 import { setItem } from '../utils/asyncStorage';
+import FontAdjustScreen from './FontAdjustScreen';
 
 const {width, height} = Dimensions.get('window');
 

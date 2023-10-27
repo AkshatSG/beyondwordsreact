@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, Image, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import TextRecognition from '@react-native-ml-kit/text-recognition';
 import Tts from 'react-native-tts';
-import LinearGradient from 'react-native-linear-gradient';
-import Lottie from 'lottie-react-native';
 import { useNavigation } from '@react-navigation/native';
 import ImagePicker from 'react-native-image-crop-picker';
 

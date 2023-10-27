@@ -2,11 +2,11 @@ export const TextSummarization = async(originalText: String) => {
     try {
       const textToSummarize = originalText; // Get the text from a TextInput or any source
 
-      const response = await fetch('https://api-inference.huggingface.co/models/facebook/bart-large-cnn', {
+      const response = await fetch('', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer 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',
+          'Authorization': '',
         },
         body: JSON.stringify({
           inputs: textToSummarize,

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image, ActivityIndicator, Alert, Switch } from 'react-native';
 import Tts from 'react-native-tts';
-import Voice, { SpeechEndEvent, SpeechErrorEvent, SpeechResultsEvent } from '@react-native-voice/voice';
 import { useNavigation } from '@react-navigation/native';
 import { TextSummarization } from '../utils/bert';
 import "react-native-gesture-handler";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Slider from '@react-native-community/slider';
+import { faBrain, faFont, faHouse, faPause, faVolumeHigh } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 export default function ReaderScreen({ route }) {
@@ -16,12 +16,7 @@ export default function ReaderScreen({ route }) {
   const [isReading, setIsReading] = useState(false);
   const [isReadingComplete, setIsReadingComplete] = useState(false);
   const [readingSpeed, setReadingSpeed] = useState<number>(0.5);
-  const [isRecording, setIsRecording] = useState(false);
-  const [capturedText, setCapturedText] = useState('');
   const [rawText, setRawText] = useState(text);
-  const [voiceRecognitionActive, setVoiceRecognitionActive] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [summaryText, setSummaryText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation();
   const [isOpen, setOpen] = useState(false);
@@ -69,7 +64,6 @@ export default function ReaderScreen({ route }) {
             ]
           );
         } else {
-          setSummaryText(summary);
           navigation.navigate('AISummary', { text: summary });
         }
       }
@@ -140,45 +134,30 @@ export default function ReaderScreen({ route }) {
                     </View>
                   </View>               
               </SafeAreaProvider>
-            </GestureHandlerRootView>
-          )}
-          <View style={styles.controls}>
-            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-              <View style={styles.circle}>
-                <Text style={styles.circleText}>🏠</Text>
+              </GestureHandlerRootView>
+            )}
+            <View style={styles.controls}>
+              <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+                <View style={styles.circle}>
+                  <FontAwesomeIcon icon={faHouse} color={'white'} size={25}/>
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={toggleSheet}>
               <View style={styles.circle}>
-                <Text style={styles.circleText}>aA</Text>
+                <FontAwesomeIcon icon={faFont} color={'white'} size={25}/>
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={handleReadOut}>
               <View style={[styles.circle, isReading && { backgroundColor: '#8BD4BD' }, isReadingComplete && { backgroundColor: '#90AAE7' }]}>
-                <Text style={styles.circleText}>{isReading ? '||' : '🔊'}</Text>
+                <Text style={styles.circleText}>{isReading ? (<FontAwesomeIcon icon={faPause} color={'white'} size={25}/>) : (<FontAwesomeIcon icon={faVolumeHigh} color={'white'} size={25}/>)}</Text>
               </View>
             </TouchableOpacity>
-            {/* <TouchableOpacity onPress={handleDecreaseSpeed}>
-              <View style={styles.circle}>
-                <Text style={styles.circleText}>-</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={handleIncreaseSpeed}>
-              <View style={styles.circle}>
-                <Text style={styles.circleText}>+</Text>
-              </View>
-            </TouchableOpacity> */}
-            {/* <TouchableOpacity onPress={handleVoiceRecognition}>
-              <View style={[styles.circle, { backgroundColor: isRecording ? '#8BD4BD' : '#90AAE7' }]}>
-                <Text style={styles.circleText}>🎤</Text>
-              </View>
-            </TouchableOpacity> */}
             <TouchableOpacity onPress={handleSummarizeText}>
               <View style={styles.circle}>
                 {isLoading ? (
                   <ActivityIndicator size="small" color="#fff" />
                 ) : (
-                  <Text style={styles.circleText}>📝</Text>
+                  <FontAwesomeIcon icon={faBrain} color={'white'} size={25}/>
                 )}
               </View>
             </TouchableOpacity>
@@ -203,11 +182,6 @@ export default function ReaderScreen({ route }) {
         borderTopLeftRadius: 20,
         zIndex: 2,
       },
-      // backdrop: {
-      //   ...StyleSheet.absoluteFillObject,
-      //   backgroundColor: "rgba(0,0,0,0.5)",
-      //   zIndex: 1,
-      // },
       label: {
         margin: 10,
         fontSize: 17,
@@ -229,7 +203,7 @@ export default function ReaderScreen({ route }) {
         width: 40,
         height: 40,
         borderRadius: 40 / 2,
-        backgroundColor: '#90AAE7',
+        backgroundColor: '#0072C6',
         justifyContent: 'center',
         alignItems: 'center',
         borderWidth: 1,

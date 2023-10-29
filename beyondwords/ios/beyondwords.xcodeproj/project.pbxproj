@@ -14,6 +14,10 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-beyondwords-beyondwordsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-beyondwords-beyondwordsTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		9BA082D1CC7F416C879C538A /* OpenDyslexic-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 60EFF0D6B08C47E19C19FF53 /* OpenDyslexic-Bold.otf */; };
+		CB8EACAE764742C0843E36CD /* OpenDyslexic-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = CBFAD84A69F546EC82A4560F /* OpenDyslexic-BoldItalic.otf */; };
+		B295D3400F14437FBB25B66C /* OpenDyslexic-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9286E32F786C47A49F36E7DE /* OpenDyslexic-Italic.otf */; };
+		12D62778084B4B22A75D8701 /* OpenDyslexic-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4E0CCBA0C7C6487BB6AFF007 /* OpenDyslexic-Regular.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +48,10 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = beyondwords/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-beyondwords-beyondwordsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-beyondwords-beyondwordsTests.release.xcconfig"; path = "Target Support Files/Pods-beyondwords-beyondwordsTests/Pods-beyondwords-beyondwordsTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		60EFF0D6B08C47E19C19FF53 /* OpenDyslexic-Bold.otf */ = {isa = PBXFileReference; name = "OpenDyslexic-Bold.otf"; path = "../assets/fonts/OpenDyslexic-Bold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CBFAD84A69F546EC82A4560F /* OpenDyslexic-BoldItalic.otf */ = {isa = PBXFileReference; name = "OpenDyslexic-BoldItalic.otf"; path = "../assets/fonts/OpenDyslexic-BoldItalic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9286E32F786C47A49F36E7DE /* OpenDyslexic-Italic.otf */ = {isa = PBXFileReference; name = "OpenDyslexic-Italic.otf"; path = "../assets/fonts/OpenDyslexic-Italic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4E0CCBA0C7C6487BB6AFF007 /* OpenDyslexic-Regular.otf */ = {isa = PBXFileReference; name = "OpenDyslexic-Regular.otf"; path = "../assets/fonts/OpenDyslexic-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +130,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				02BFD84DE0C0482691AD5697 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -147,6 +156,18 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		02BFD84DE0C0482691AD5697 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				60EFF0D6B08C47E19C19FF53 /* OpenDyslexic-Bold.otf */,
+				CBFAD84A69F546EC82A4560F /* OpenDyslexic-BoldItalic.otf */,
+				9286E32F786C47A49F36E7DE /* OpenDyslexic-Italic.otf */,
+				4E0CCBA0C7C6487BB6AFF007 /* OpenDyslexic-Regular.otf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -244,6 +265,10 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				9BA082D1CC7F416C879C538A /* OpenDyslexic-Bold.otf in Resources */,
+				CB8EACAE764742C0843E36CD /* OpenDyslexic-BoldItalic.otf in Resources */,
+				B295D3400F14437FBB25B66C /* OpenDyslexic-Italic.otf in Resources */,
+				12D62778084B4B22A75D8701 /* OpenDyslexic-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

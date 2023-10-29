@@ -6,7 +6,7 @@ export const TextSummarization = async(originalText: String) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer *************', // Replace ************* with your API key
+          'Authorization': 'Bearer ', // Add your Hugging Face token here
         },
         body: JSON.stringify({
           inputs: textToSummarize,

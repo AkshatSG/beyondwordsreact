@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ImageBackground, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 const { width, height } = Dimensions.get('window');
 const buttonSize = width * 0.2; // Reduced button size
@@ -20,7 +22,7 @@ export default function HomeScreen() {
             <View style={[styles.homeContainer]}>
                 <View style={{flex: 1}} />
                 <TouchableOpacity style={circleButtonStyle} onPress={handleScanTextButtonPress}>
-                    <Text style={styles.newText}>+</Text>
+                <FontAwesomeIcon icon={faPlus} color={'white'} size={35}/>
                 </TouchableOpacity>
             </View>
         </ImageBackground>

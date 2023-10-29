@@ -5,6 +5,8 @@ import TextRecognition from '@react-native-ml-kit/text-recognition';
 import Tts from 'react-native-tts';
 import { useNavigation } from '@react-navigation/native';
 import ImagePicker from 'react-native-image-crop-picker';
+import { faCheck, faScissors, faUndo } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 const { width, height } = Dimensions.get('window');
 const buttonSize = 30;
@@ -156,22 +158,18 @@ export default function ImageCropScreen() {
                                     {isLoading ? (
                                 <ActivityIndicator size="small" color="#fff" />
                                 ) : (
-                                <Text style={styles.circleText}>✔</Text>
+                                    <FontAwesomeIcon icon={faCheck} color={'white'} size={25}/>
                                 )}
                                 </View>
                                 </TouchableOpacity>
-
-                                
-
-
                                 <TouchableOpacity onPress={handleImageCorrection}>
                                     <View style={styles.circle}>
-                                        <Text style={styles.circleText}>✂︎</Text>
+                                    <FontAwesomeIcon icon={faScissors} color={'white'} size={25}/>
                                     </View>
                                 </TouchableOpacity>                                
                                 <TouchableOpacity onPress={handleXMark}>
                                     <View style={styles.circle}>
-                                        <Text style={styles.circleText}>X</Text>
+                                    <FontAwesomeIcon icon={faUndo} color={'white'} size={25}/>
                                     </View>
                                 </TouchableOpacity>
                             </View>
@@ -212,7 +210,7 @@ export default function ImageCropScreen() {
             width: 40,
             height: 40,
             borderRadius: 40 / 2,
-            backgroundColor: '#90AAE7',
+            backgroundColor: '#0072C6',
             justifyContent: 'center',
             alignItems: 'center',
             borderWidth: 1,

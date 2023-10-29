@@ -33,7 +33,7 @@ export default function OnboardingScreen() {
             containerStyles={{paddingHorizontal: 15}}
             pages={[
                 {
-                    backgroundColor: '#ffffff',
+                    backgroundColor: '#c7ecee',
                     image: (
                         <View style={styles.lottie}>
                             <Image style={styles.image} source={require('../assets/images/beyondwords.png')} />
@@ -60,7 +60,7 @@ export default function OnboardingScreen() {
                         </View>
                     ),
                     title: 'Improve Understanding',
-                    subtitle: 'With our AI you can improve your understanding of the text',
+                    subtitle: 'Get a better understanding of the material using our AI powered summarizer',
                 },
                 {
                     backgroundColor: '#a78bfa',
@@ -70,7 +70,7 @@ export default function OnboardingScreen() {
                         </View>
                     ),
                     title: 'Achieve Higher Goals',
-                    subtitle: 'Machine Learning can help you achieve your learing goals faster',
+                    subtitle: 'Dyslexia friendly fonts and colors to help you achieve your reading goals',
                 },
             ]}
         />

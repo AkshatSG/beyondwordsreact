@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ImageBackground, 
 import { useNavigation } from '@react-navigation/native';
 
 const { width, height } = Dimensions.get('window');
-const buttonSize = width * 0.25; // Reduced button size
+const buttonSize = width * 0.2; // Reduced button size
 
 export default function HomeScreen() {
 
@@ -13,7 +13,7 @@ export default function HomeScreen() {
         navigation.navigate('ImageCrop');
     }
 
-    const circleButtonStyle = [styles.circleButton, {width: buttonSize, height: buttonSize}];
+    const circleButtonStyle = [styles.circleButton, {width: buttonSize, height: buttonSize, marginBottom: 20, borderRadius: buttonSize/2}];
 
     return (
         <ImageBackground source={require('../assets/images/appbackground.jpeg')} style={[styles.backgroundImage, {width: width, height: height}]}>
@@ -55,7 +55,6 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     circleButton: {
-        borderRadius: 100,
         backgroundColor: '#0072C6',
         justifyContent: 'center',
         alignItems: 'center',

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, Dimensions, ActivityIndicator } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import TextRecognition from '@react-native-ml-kit/text-recognition';
 import Tts from 'react-native-tts';
@@ -18,15 +18,15 @@ export default function ImageCropScreen() {
     const [tickClicked, setTickClicked] = useState<boolean>(false);
     const [isReading, setIsReading] = useState(false); // Add state variable for read out button
     const cameraRef = React.useRef<RNCamera | null>(null);
-
+    const [isLoading, setIsLoading] = useState(false);
     const navigation = useNavigation();
 
     const handleImageCorrection = async () => {
         try {
           const image = await ImagePicker.openCropper({
             path: picture,
-            width: 1000, // Width of the corrected image
-            height: 800, // Height of the corrected image
+            width: 1024, // Width of the corrected image
+            height: 768, // Height of the corrected image
             cropping: true,
             hideBottomControls: true,
             cropperToolbarTitle: 'Crop Image',
@@ -54,9 +54,11 @@ export default function ImageCropScreen() {
     };
 
     const handleTickMark = async () => {
+        setIsLoading(true);
         const options = { quality: 0.5, base64: true };
         const recognizedText = await TextRecognition.recognize(picture);
         const cleanText = recognizedText.text.replace(/[\n\r]+/g, ' ');
+        setIsLoading(false);
         navigation.navigate('Reader', { text: cleanText });
     };
 
@@ -150,10 +152,18 @@ export default function ImageCropScreen() {
                         ) : (
                             <View style={styles.controls}>
                                 <TouchableOpacity onPress={handleTickMark}>
-                                    <View style={styles.circle}>
-                                        <Text style={styles.circleText}>✔</Text>
-                                    </View>
+                                <View style={styles.circle}>
+                                    {isLoading ? (
+                                <ActivityIndicator size="small" color="#fff" />
+                                ) : (
+                                <Text style={styles.circleText}>✔</Text>
+                                )}
+                                </View>
                                 </TouchableOpacity>
+
+                                
+
+
                                 <TouchableOpacity onPress={handleImageCorrection}>
                                     <View style={styles.circle}>
                                         <Text style={styles.circleText}>✂︎</Text>

@@ -9,7 +9,7 @@ export default function AISummaryScreen({route}) {
         <View style={{ flex: 1 }}>
             <View style={styles.header}>
                 <Image source={require('../assets/images/beyondwords.png')} style={styles.logo} />
-                <Text style={styles.text}>Smart Summarizer - AI Powered</Text>
+                <Text style={styles.headerText}>BeyondWords AI Summary</Text>
             </View>
             <ScrollView style={styles.textContainer}>
                 <Text style={styles.text}>{text}</Text>
@@ -35,6 +35,12 @@ const styles = StyleSheet.create({
         width: 60,
         height: 60,
     },
+    headerText: {
+        fontFamily: 'OpenDyslexic-Bold',
+        fontSize: 20,
+        margin: 10,
+        marginTop: 13,
+      },
     text: {
         fontSize: 17,
         fontFamily: 'OpenDyslexic-Bold',

@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image, ActivityIndicator, Alert, Switch } from 'react-native';
 import Tts from 'react-native-tts';
-import Voice from '@react-native-voice/voice';
+import Voice, { SpeechEndEvent, SpeechErrorEvent, SpeechResultsEvent } from '@react-native-voice/voice';
 import { useNavigation } from '@react-navigation/native';
 import { TextSummarization } from '../utils/bert';
 import "react-native-gesture-handler";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Slider from '@react-native-community/slider';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 export default function ReaderScreen({ route }) {
   const { text } = route.params;
@@ -36,14 +37,6 @@ export default function ReaderScreen({ route }) {
     setOpen(!isOpen);
   };
 
-  const handleIncreaseFontSize = () => {
-    setFontSize((prevFontSize) => prevFontSize + 2);
-  }
-
-  const handleDecreaseFontSize = () => {
-    setFontSize((prevFontSize) => prevFontSize - 2);
-  }
-
   const handleReadOut = () => {
     if (!isReading && text) {
       setIsReading(true);
@@ -59,41 +52,14 @@ export default function ReaderScreen({ route }) {
     setIsReading(false);
   }
 
-  const handleIncreaseSpeed = () => {
-    
-        const newSpeed = readingSpeed + 2;
-        setReadingSpeed(newSpeed);
-        Tts.setDefaultRate(newSpeed);
-      }
-
-      const handleDecreaseSpeed = () => {
-        const newSpeed = readingSpeed - 2;
-        setReadingSpeed(newSpeed);
-        Tts.setDefaultRate(newSpeed);
-      }
-
-      const handleVoiceRecognition = () => {
-        if (!voiceRecognitionActive) {
-          // Start voice recognition
-          setVoiceRecognitionActive(true);
-          setIsRecording(true);
-          Voice.start('en-US').catch((e) => console.error(e));
-        } else {
-          // Stop voice recognition
-          setVoiceRecognitionActive(false);
-          setIsRecording(false);
-          Voice.stop().catch((e) => console.error(e));
-        }
-      }
-
       const handleSummarizeText = async () => {
         setIsLoading(true);
         const summary = await TextSummarization(rawText);
         setIsLoading(false);
         if (summary === "ERROR") {
           Alert.alert(
-            "Error",
-            "An error occurred while summarizing the text. Please try again in a few minutes.",
+            "AI Loading",
+            "AI Model is being loaded... Please try again in a few seconds.",
             [
               {
                 text: "OK",
@@ -132,7 +98,7 @@ export default function ReaderScreen({ route }) {
         <View style={{ flex: 1 }}>
           <View style={styles.header}>
             <Image source={require('../assets/images/beyondwords.png')} style={styles.logo} />
-            <Text style={styles.headerText}>Read Easy: Your Digital Portal</Text>
+            <Text style={styles.headerText}>BeyondWords AI Reader</Text>
           </View>
           <ScrollView style={{ flex: 1 }}>
             <Text style={[styles.text, { fontSize: fontSize }, { letterSpacing }]}>{text}</Text>
@@ -177,6 +143,11 @@ export default function ReaderScreen({ route }) {
             </GestureHandlerRootView>
           )}
           <View style={styles.controls}>
+            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+              <View style={styles.circle}>
+                <Text style={styles.circleText}>🏠</Text>
+              </View>
+            </TouchableOpacity>
             <TouchableOpacity onPress={toggleSheet}>
               <View style={styles.circle}>
                 <Text style={styles.circleText}>aA</Text>
@@ -187,7 +158,7 @@ export default function ReaderScreen({ route }) {
                 <Text style={styles.circleText}>{isReading ? '||' : '🔊'}</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={handleDecreaseSpeed}>
+            {/* <TouchableOpacity onPress={handleDecreaseSpeed}>
               <View style={styles.circle}>
                 <Text style={styles.circleText}>-</Text>
               </View>
@@ -196,12 +167,12 @@ export default function ReaderScreen({ route }) {
               <View style={styles.circle}>
                 <Text style={styles.circleText}>+</Text>
               </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={handleVoiceRecognition}>
+            </TouchableOpacity> */}
+            {/* <TouchableOpacity onPress={handleVoiceRecognition}>
               <View style={[styles.circle, { backgroundColor: isRecording ? '#8BD4BD' : '#90AAE7' }]}>
-                <Text style={styles.circleText}>{isRecording ? '🎤' : '🎤'}</Text>
+                <Text style={styles.circleText}>🎤</Text>
               </View>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <TouchableOpacity onPress={handleSummarizeText}>
               <View style={styles.circle}>
                 {isLoading ? (
@@ -251,7 +222,8 @@ export default function ReaderScreen({ route }) {
       headerText: {
         fontFamily: 'OpenDyslexic-Bold',
         margin: 10,
-        fontSize: 17,
+        fontSize: 20,
+        marginTop: 13,
       },
       circle: {
         width: 40,
